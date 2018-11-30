@@ -1,3 +1,5 @@
-faissjni   `faiss-service  c++ and JNI API`
+dir ：desc
 
-faiss-client  `Java faiss client`
+faissjni   ： `faiss-service  c++ and JNI API`
+
+faiss-client  ： `Java faiss client`
