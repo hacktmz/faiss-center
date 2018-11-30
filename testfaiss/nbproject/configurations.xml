@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles" displayName="头文件" projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles" displayName="源文件" projectFiles="true">
+      <itemPath>../faissjni/jnisrc/GLogHelper.cpp</itemPath>
+      <itemPath>../faissjni/jnisrc/GLogHelper.h</itemPath>
+      <itemPath>../faissjni/jnisrc/gpu_manager.cpp</itemPath>
+      <itemPath>../faissjni/jnisrc/gpu_manager.h</itemPath>
+      <itemPath>../faissjni/jnisrc/index_manager.cpp</itemPath>
+      <itemPath>../faissjni/jnisrc/index_manager.h</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles" displayName="资源文件" projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="测试文件"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="重要文件"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../faiss</pElem>
+            <pElem>/usr/local/cuda-8.0/include</pElem>
+          </incDir>
+          <commandLine>-std=c++11</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/testfaiss</output>
+          <linkerAddLib>
+            <pElem>/usr/lib64</pElem>
+            <pElem>/usr/local/cuda-8.0/targets/x86_64-linux/lib/</pElem>
+          </linkerAddLib>
+          <stripSymbols>true</stripSymbols>
+          <linkerCopySharedLibs>true</linkerCopySharedLibs>
+          <linkerLibItems>
+            <linkerLibFileItem>../faissjni/glog/libglog.a</linkerLibFileItem>
+            <linkerLibFileItem>../faiss/libfaiss.a</linkerLibFileItem>
+            <linkerLibFileItem>../faiss/gpu/libgpufaiss.a</linkerLibFileItem>
+            <linkerLibFileItem>/usr/lib64/libopenblas.so.0</linkerLibFileItem>
+          </linkerLibItems>
+          <commandLine>-fopenmp -lgomp -lblas -lcublas -lcudart</commandLine>
+        </linkerTool>
+      </compileType>
+      <packaging>
+        <packType>Tar</packType>
+        <packFileList>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/libopenblas.so.0"
+                            from="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libopenblas.so.0"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/libopenblas.so.0"
+                            from="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libopenblas.so.0"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+          <packFileListElem type="File"
+                            to="${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}"
+                            from="${OUTPUT_PATH}"
+                            perm="755"
+                            owner="root"
+                            group="bin"/>
+        </packFileList>
+      </packaging>
+      <item path="../faissjni/jnisrc/GLogHelper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/GLogHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/gpu_manager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/gpu_manager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/index_manager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/index_manager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <standard>8</standard>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="../faissjni/jnisrc/GLogHelper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/GLogHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/gpu_manager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/gpu_manager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/index_manager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../faissjni/jnisrc/index_manager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

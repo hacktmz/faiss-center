@@ -1,0 +1,103 @@
+package com.jiuyan.faiss.test;
+
+import java.util.Arrays;
+import java.util.Random;
+
+import com.jiuyan.faiss.NativeClient;
+
+public class NativeTest {
+
+	private static int d = 64;
+	private static int nb = 100000;
+	private static int nq = 10000;
+	private static float[] xb = new float[nb * d];
+	private static float[] xq = new float[nq * d];
+
+	public static void init() {
+		Random random = new Random();
+		for (int i = 0; i < nb * d; i++) {
+			xb[i] = random.nextFloat();
+		}
+		for (int i = 0; i < nq * d; i++) {
+			xq[i] = random.nextFloat();
+		}
+	}
+
+	public static void main(String[] args) {
+		init();
+		testIndexIVF();
+		System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+		//testIndexIVFPQ();
+	}
+
+	public static void testIndexL2() {
+		long pointer = NativeClient.indexFlatL2_index(d);
+		System.out.println("pointer:" + pointer);
+		int res = NativeClient.indexFlatL2_add(pointer, nb, xb);
+		System.out.println("add result:" + res);
+		// NativeClient.indexFlatL2_train(pointer, nb, xb);
+
+		int queryNum = 5;
+		int limit = 4;
+		float[] result = new float[queryNum * limit];
+		long[] index = new long[queryNum * limit];
+		NativeClient.indexFlatL2_search(pointer, queryNum, xq, limit, result, index);
+		System.out.println(Arrays.toString(result));
+		System.out.println(Arrays.toString(index));
+		System.out.println("close:" + NativeClient.close(pointer));
+		System.out.println("finish");
+	}
+
+	public static void testIndexIVF() {
+		long quantizer = NativeClient.indexFlatL2_index(d);
+		int nlist = 100;
+		int metricType = 1;
+		System.out.println("quantizer:" + quantizer);
+		long pointer = NativeClient.indexIVFFlat_index(quantizer, d, nlist, metricType);
+		System.out.println("pointer:" + pointer);
+		int res = NativeClient.indexIVFFlat_train(pointer, nb, xb);
+		System.out.println("train result:" + res);
+		res = NativeClient.indexIVFFlat_add(pointer, nb, xb);
+		System.out.println("add result:" + res);
+		int queryNum = 5;
+		int limit = 4;
+		float[] result = new float[queryNum * limit];
+		long[] index = new long[queryNum * limit];
+		int probes = 10;
+		res = NativeClient.setProbe(pointer, probes);
+		System.out.println("probe result:" + res);
+		NativeClient.indexIVFFlat_search(pointer, queryNum, xq, limit, result, index);
+		System.out.println(Arrays.toString(result));
+		System.out.println(Arrays.toString(index));
+		System.out.println("close:" + NativeClient.close(pointer));
+		System.out.println("finish");
+	}
+
+	public static void testIndexIVFPQ() {
+		long quantizer = NativeClient.indexFlatL2_index(d);
+		int nlist = 100;
+		System.out.println("quantizer:" + quantizer);
+		int m = 8;
+		int nbits = 8;
+		long pointer = NativeClient.indexIVFPQ_index(quantizer, d, nlist, m, nbits);
+		System.out.println("pointer:" + pointer);
+		int res = NativeClient.indexIVFPQ_train(pointer, nb, xb);
+		System.out.println("train result:" + res);
+		res = NativeClient.indexIVFPQ_add(pointer, nb, xb);
+		System.out.println("add result:" + res);
+		int queryNum = 5;
+		int limit = 4;
+		float[] result = new float[queryNum * limit];
+		long[] index = new long[queryNum * limit];
+		int probes = 10;
+		res = NativeClient.setPQProbe(pointer, probes);
+		System.out.println("probe result:" + res);
+		System.out.println("-----------------------------------");
+		NativeClient.indexIVFPQ_search(pointer, queryNum, xq, limit, result, index);
+		System.out.println(Arrays.toString(result));
+		System.out.println(Arrays.toString(index));
+		System.out.println("close:" + NativeClient.close(pointer));
+		System.out.println("finish");
+	}
+
+}
